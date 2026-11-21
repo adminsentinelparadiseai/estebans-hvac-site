@@ -1,0 +1,354 @@
+<title>Estebans Hvac SoCal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a thermostat-dial hero split cool/warm, then a single working column of trade sections, with the booking form as the page's center of gravity. */
+:root{
+  --bg:#f3f6f8; --surface:#ffffff; --ink:#122330; --muted:#526676; --line:#d5dee5;
+  --cool:#1f6fb2; --warm:#e0602a; --cool-soft:#e2eef8; --warm-soft:#fbe9e0; --ok:#1f8a5a;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d171f; --surface:#14222d; --ink:#e6eef4; --muted:#9db0bf; --line:#263848;
+  --cool:#5aa7e6; --warm:#f08a5a; --cool-soft:#16324a; --warm-soft:#3a2216; --ok:#4cc38a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d171f; --surface:#14222d; --ink:#e6eef4; --muted:#9db0bf; --line:#263848;
+  --cool:#5aa7e6; --warm:#f08a5a; --cool-soft:#16324a; --warm-soft:#3a2216; --ok:#4cc38a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:.01em}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0}
+a{color:var(--cool)}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 1rem var(--body);padding:13px 22px;border-radius:8px;border:2px solid transparent;cursor:pointer;text-decoration:none}
+.btn-warm{background:var(--warm);color:#fff}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--cool);outline-offset:2px}
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font:800 1.5rem var(--display);text-transform:uppercase;color:var(--ink);text-decoration:none}
+.brand .mark{width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--cool) 0 50%,var(--warm) 50% 100%);position:relative}
+.brand .mark::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--surface)}
+nav.links{display:flex;gap:18px;flex-wrap:wrap}
+nav.links a{color:var(--ink);text-decoration:none;font-weight:500;font-size:.95rem}
+nav.links a:hover{color:var(--warm)}
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:56px}
+.hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:800;text-transform:uppercase}
+.hero h1 .c{color:var(--cool)} .hero h1 .w{color:var(--warm)}
+.hero .lead{font-size:1.15rem;color:var(--muted);max-width:52ch;margin-top:16px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;font-size:.92rem;color:var(--muted)}
+.trust b{display:block;font:700 1.5rem var(--display);color:var(--ink)}
+.dial{width:100%;max-width:360px;aspect-ratio:1;margin-inline:auto;border-radius:50%;background:conic-gradient(from 200deg,var(--cool),var(--cool-soft) 40%,var(--warm-soft) 60%,var(--warm));padding:22px;position:relative}
+.dial .face{width:100%;height:100%;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 1px var(--line)}
+.dial .temp{font:800 5.5rem/1 var(--display);font-variant-numeric:tabular-nums}
+.dial .temp sup{font-size:2rem;vertical-align:top}
+.dial .mode{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dial .mode button{font:600 .8rem var(--mono);letter-spacing:.08em;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.dial .mode button[aria-pressed="true"].cool{background:var(--cool);color:#fff;border-color:var(--cool)}
+.dial .mode button[aria-pressed="true"].heat{background:var(--warm);color:#fff;border-color:var(--warm)}
+.dial small{display:block;color:var(--muted);font-size:.85rem;margin-top:8px}
+/* sections */
+section{padding-block:64px}
+section.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;max-width:65ch}
+.head p{color:var(--muted)}
+.grid{display:grid;gap:18px}
+.svc{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.svc article{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:8px}
+section.alt .svc article{background:var(--bg)}
+.svc .tag{align-self:flex-start;font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.tag.cool{background:var(--cool-soft);color:var(--cool)} .tag.heat{background:var(--warm-soft);color:var(--warm)}
+.svc p{color:var(--muted);font-size:.95rem}
+.svc a.book{margin-top:auto;font-weight:600;text-decoration:none;color:var(--warm)}
+/* booking */
+.book-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:start}
+form.order{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px;display:grid;gap:18px}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:10px;min-width:0}
+legend{font:700 1.15rem var(--display);text-transform:uppercase;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.93rem;background:var(--bg)}
+.chips input{accent-color:var(--warm)}
+.chips label:has(input:checked){border-color:var(--warm);background:var(--warm-soft)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label.f{display:grid;gap:5px;font-size:.88rem;font-weight:500;min-width:0}
+input,select,textarea{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+textarea{min-height:90px;resize:vertical}
+.err{color:var(--warm);font-size:.88rem;min-height:1.2em}
+.summary{position:sticky;top:90px;display:grid;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:10px}
+.card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.93rem}
+.card dt{color:var(--muted)} .card dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.done{border-color:var(--ok)}
+.done h3{color:var(--ok)}
+.urgent{background:var(--warm);color:#fff;border-radius:12px;padding:18px;display:grid;gap:6px}
+.urgent strong{font:800 1.6rem var(--display);letter-spacing:.02em;user-select:all}
+/* plans */
+.plans{grid-template-columns:repeat(3,1fr)}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.plan.feature{border:2px solid var(--warm)}
+.price{font:800 2.6rem/1 var(--display);font-variant-numeric:tabular-nums}
+.price span{font:500 .9rem var(--body);color:var(--muted)}
+.plan ul{margin:0;padding-left:18px;color:var(--muted);font-size:.95rem;display:grid;gap:4px}
+.plan .btn{margin-top:auto}
+.note{font-size:.82rem;color:var(--muted);margin-top:14px}
+/* process */
+.steps{grid-template-columns:repeat(4,1fr);counter-reset:s}
+.steps li{list-style:none;border-top:3px solid var(--cool);padding-top:14px;display:grid;gap:6px}
+.steps li::before{counter-increment:s;content:"Step " counter(s);font:500 .75rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cool)}
+.steps p{color:var(--muted);font-size:.94rem}
+ol.steps{padding:0;margin:0}
+/* area + reviews */
+.two{grid-template-columns:1fr 1fr;gap:28px}
+.cities{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cities span{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:.92rem;background:var(--bg)}
+.zipcheck{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.zipcheck input{max-width:160px}
+blockquote{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:8px}
+blockquote p{font-size:1rem}
+blockquote cite{font-style:normal;color:var(--muted);font-size:.88rem}
+.sample{font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--warm)}
+/* faq */
+details{border-bottom:1px solid var(--line);padding-block:14px}
+summary{cursor:pointer;font-weight:600;font-size:1.05rem}
+details p{color:var(--muted);margin-top:8px;max-width:70ch}
+/* footer */
+footer{background:var(--ink);color:var(--bg)}
+footer .wrap{padding-block:40px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+footer h3{color:var(--bg);font-size:1.1rem;text-transform:uppercase;margin-bottom:8px}
+footer p,footer li{font-size:.92rem;opacity:.85}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
+.legal{grid-column:1/-1;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent);padding-top:18px;font-size:.8rem;opacity:.75}
+.draft{background:var(--warm-soft);color:var(--ink);border-bottom:1px solid var(--line);font-size:.85rem}
+.draft .wrap{padding-block:8px}
+@media (max-width:860px){
+  .hero .wrap,.book-grid,.two,footer .wrap{grid-template-columns:1fr}
+  .plans,.steps{grid-template-columns:1fr 1fr}
+  .summary{position:static}
+  nav.links{display:none}
+}
+@media (max-width:520px){.plans,.steps,.row{grid-template-columns:1fr}.dial .temp{font-size:4.2rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="draft"><div class="wrap"><b>Rough draft for Esteban.</b> Sample prices and reviews are marked and need your OK before launch.</div></div>
+
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Estebans Hvac SoCal</a>
+  <nav class="links" aria-label="Main">
+    <a href="#services">Services</a><a href="#book">Book</a><a href="#plans">Plans</a><a href="#area">Service area</a><a href="#faq">FAQ</a>
+  </nav>
+  <a class="btn btn-warm" href="#book">Book service</a>
+</div></header>
+
+<main id="top">
+<section class="hero" style="padding-block:0"><div class="wrap">
+  <div>
+    <p class="eyebrow">Heating ¬∑ Cooling ¬∑ Air quality ¬∑ San Gabriel Valley &amp; LA</p>
+    <h1>Too <span class="w">hot</span>, too <span class="c">cold</span>? We fix it.</h1>
+    <p class="lead">Family-run HVAC with 20+ years of hands-on experience. Repairs, tune-ups and new systems for homes and small businesses across Alhambra and the greater Los Angeles area.</p>
+    <div class="ctas">
+      <a class="btn btn-warm" href="#book">Request service online</a>
+      <a class="btn btn-line" href="#plans">See maintenance plans</a>
+    </div>
+    <div class="trust">
+      <div><b>20+ yrs</b>family HVAC experience</div>
+      <div><b>EPA 608</b>certified refrigerant handling</div>
+      <div><b>Upfront</b>quotes before any work</div>
+    </div>
+  </div>
+  <div class="dial" aria-label="Thermostat illustration">
+    <div class="face"><div>
+      <div class="temp" id="temp">72<sup>¬∞F</sup></div>
+      <div class="mode" role="group" aria-label="Pick what you need">
+        <button type="button" class="cool" id="m-cool" aria-pressed="true">COOL</button>
+        <button type="button" class="heat" id="m-heat" aria-pressed="false">HEAT</button>
+      </div>
+      <small id="dialtxt">AC not keeping up? Book a cooling visit.</small>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="services" class="alt"><div class="wrap">
+  <div class="head"><p class="eyebrow">What we do</p><h2>Services</h2><p>Every visit starts with a diagnosis and a written quote. You approve the price before we start.</p></div>
+  <div class="grid svc">
+    <article><span class="tag cool">Cooling</span><h3>AC repair</h3><p>Warm air, short cycling, ice on the lines, strange noises or high bills. We find the cause and fix it.</p><a class="book" href="#book" data-svc="AC repair">Book AC repair ‚Üí</a></article>
+    <article><span class="tag heat">Heating</span><h3>Furnace &amp; heater repair</h3><p>No heat, pilot or igniter problems, blower issues and gas furnace safety checks.</p><a class="book" href="#book" data-svc="Heating repair">Book heating repair ‚Üí</a></article>
+    <article><span class="tag cool">Tune-ups</span><h3>Seasonal maintenance</h3><p>Coil cleaning, refrigerant check, filter change, electrical and safety inspection before summer or winter.</p><a class="book" href="#book" data-svc="Tune-up">Book a tune-up ‚Üí</a></article>
+    <article><span class="tag heat">Install</span><h3>New systems &amp; replacements</h3><p>Central air, heat pumps, furnaces and ductless mini-splits sized to your home with a load calculation.</p><a class="book" href="#book" data-svc="New system quote">Get an install quote ‚Üí</a></article>
+    <article><span class="tag cool">Airflow</span><h3>Ductwork</h3><p>Leak sealing, repairs and duct runs for rooms that never get comfortable.</p><a class="book" href="#book" data-svc="Ductwork">Book duct service ‚Üí</a></article>
+    <article><span class="tag heat">Comfort</span><h3>Thermostats &amp; air quality</h3><p>Smart thermostat installs, filtration upgrades, UV lights and humidity control.</p><a class="book" href="#book" data-svc="Thermostat / air quality">Book comfort upgrade ‚Üí</a></article>
+  </div>
+</div></section>
+
+<section id="book"><div class="wrap">
+  <div class="head"><p class="eyebrow">Online booking</p><h2>Request service</h2><p>Tell us what's going on and pick a time. Esteban confirms your appointment by phone or text.</p></div>
+  <div class="book-grid">
+    <form class="order" id="order" novalidate>
+      <fieldset>
+        <legend>1. What do you need?</legend>
+        <div class="chips" id="svc-chips">
+          <label><input type="radio" name="svc" value="AC repair" checked> AC repair</label>
+          <label><input type="radio" name="svc" value="Heating repair"> Heating repair</label>
+          <label><input type="radio" name="svc" value="Tune-up"> Tune-up</label>
+          <label><input type="radio" name="svc" value="New system quote"> New system quote</label>
+          <label><input type="radio" name="svc" value="Ductwork"> Ductwork</label>
+          <label><input type="radio" name="svc" value="Thermostat / air quality"> Thermostat / air quality</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>2. About your system</legend>
+        <div class="row">
+          <label class="f">System type<select id="sys"><option>Central AC + furnace</option><option>Heat pump</option><option>Ductless mini-split</option><option>Wall / floor heater</option><option>Not sure</option></select></label>
+          <label class="f">Property<select id="prop"><option>House</option><option>Condo / apartment</option><option>Small business</option></select></label>
+        </div>
+        <label class="f">How urgent?<select id="urg"><option>Routine (this week is fine)</option><option>Soon (next 1‚Äì2 days)</option><option>Urgent (no heat or no AC now)</option></select></label>
+        <label class="f">What's happening? (optional)<textarea id="desc" placeholder="Example: upstairs AC runs but blows warm air since Sunday."></textarea></label>
+      </fieldset>
+      <fieldset>
+        <legend>3. Pick a time</legend>
+        <div class="row">
+          <label class="f">Preferred date<input type="date" id="date"></label>
+          <label class="f">Time window<select id="win"><option>Morning (8‚Äì12)</option><option>Afternoon (12‚Äì4)</option><option>Evening (4‚Äì7)</option></select></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>4. Your info</legend>
+        <div class="row">
+          <label class="f">Full name<input id="name" autocomplete="name" required></label>
+          <label class="f">Phone<input id="phone" type="tel" autocomplete="tel" required></label>
+        </div>
+        <div class="row">
+          <label class="f">Email (optional)<input id="email" type="email" autocomplete="email"></label>
+          <label class="f">ZIP code<input id="zip" inputmode="numeric" maxlength="5" required></label>
+        </div>
+        <label class="f">Service address<input id="addr" autocomplete="street-address" required></label>
+      </fieldset>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn btn-warm" type="submit">Send service request</button>
+    </form>
+    <aside class="summary">
+      <div class="card" id="sumcard" aria-live="polite">
+        <p class="eyebrow">Your request</p>
+        <h3 id="sumtitle">AC repair</h3>
+        <dl id="sumlist"></dl>
+      </div>
+      <div class="urgent">
+        <span>No heat or no AC right now?</span>
+        <strong>(323) 346-2666</strong>
+        <span style="font-size:.88rem">Call or text Esteban directly.</span>
+      </div>
+    </aside>
+  </div>
+</div></section>
+
+<section id="plans" class="alt"><div class="wrap">
+  <div class="head"><p class="eyebrow">Comfort club</p><h2>Maintenance plans</h2><p>Regular tune-ups keep systems efficient, catch problems early and extend equipment life.</p></div>
+  <div class="grid plans">
+    <div class="plan"><h3>Basic</h3><div class="price">$15<span> /mo</span></div><ul><li>1 tune-up per year</li><li>Filter check every visit</li><li>Priority scheduling</li></ul><a class="btn btn-line" href="#book" data-svc="Tune-up">Choose Basic</a></div>
+    <div class="plan feature"><p class="eyebrow" style="color:var(--warm)">Most popular</p><h3>Comfort</h3><div class="price">$25<span> /mo</span></div><ul><li>2 tune-ups (spring cooling + fall heating)</li><li>10% off repairs</li><li>No overtime charges</li><li>Priority scheduling</li></ul><a class="btn btn-warm" href="#book" data-svc="Tune-up">Choose Comfort</a></div>
+    <div class="plan"><h3>Business</h3><div class="price">$45<span> /mo</span></div><ul><li>Quarterly inspections</li><li>15% off repairs</li><li>Same-day response</li><li>Up to 3 units</li></ul><a class="btn btn-line" href="#book" data-svc="Tune-up">Choose Business</a></div>
+  </div>
+  <p class="note"><span class="sample">Sample pricing</span> Esteban sets final plan prices. Online plan sign-up and card payments get connected before launch.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="head"><p class="eyebrow">How it works</p><h2>From call to cool</h2></div>
+  <ol class="grid steps">
+    <li><h3>Request</h3><p>Book online or call. Tell us the problem and pick a time.</p></li>
+    <li><h3>Diagnose</h3><p>We inspect the system and explain what we find in plain terms.</p></li>
+    <li><h3>Approve</h3><p>You get a written, upfront quote. Nothing starts without your OK.</p></li>
+    <li><h3>Fix &amp; follow up</h3><p>We do the work, clean up and check back to make sure it's running right.</p></li>
+  </ol>
+</div></section>
+
+<section id="area" class="alt"><div class="wrap">
+  <div class="grid two">
+    <div>
+      <p class="eyebrow">Where we work</p><h2>Service area</h2>
+      <p style="color:var(--muted);margin-top:10px">Based in Alhambra, serving the San Gabriel Valley and nearby Los Angeles neighborhoods.</p>
+      <div class="cities"><span>Alhambra</span><span>San Gabriel</span><span>Monterey Park</span><span>Rosemead</span><span>San Marino</span><span>South Pasadena</span><span>Pasadena</span><span>Temple City</span><span>El Sereno</span><span>East LA</span><span>Highland Park</span><span>Los Angeles</span></div>
+      <div class="zipcheck">
+        <label class="f" style="flex:1 1 160px">Check your ZIP<input id="zipq" inputmode="numeric" maxlength="5" placeholder="91801"></label>
+        <button class="btn btn-line" type="button" id="zipbtn" style="align-self:end">Check</button>
+      </div>
+      <p id="zipres" aria-live="polite" style="margin-top:10px;font-weight:500"></p>
+    </div>
+    <div>
+      <p class="eyebrow">Customers</p><h2>What neighbors say</h2>
+      <div class="grid" style="margin-top:16px">
+        <blockquote><span class="sample">Sample review</span><p>"Came out the same day our AC quit in August. Explained everything and the price was exactly what he quoted."</p><cite>Homeowner, Alhambra</cite></blockquote>
+        <blockquote><span class="sample">Sample review</span><p>"Our furnace was making a burning smell. Esteban found a cracked part, fixed it and checked the whole system."</p><cite>Homeowner, Monterey Park</cite></blockquote>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap" style="max-width:860px">
+  <div class="head"><p class="eyebrow">Questions</p><h2>FAQ</h2></div>
+  <details><summary>How fast can you come out?</summary><p>Routine visits are usually scheduled within a few days. For no-heat or no-AC situations, call or text and we'll fit you in as soon as possible.</p></details>
+  <details><summary>Do you charge for a diagnosis?</summary><p>There is a service-call fee for the diagnostic visit. You'll get a written quote for any repair before work begins.</p></details>
+  <details><summary>Repair or replace?</summary><p>If your system is over 12‚Äì15 years old, needs major parts or keeps breaking down, replacement can cost less over time. We'll show you both options honestly.</p></details>
+  <details><summary>How often should I service my system?</summary><p>Once a year at minimum. Twice a year (cooling in spring, heating in fall) is best for SoCal homes with both AC and heat.</p></details>
+  <details><summary>Do you work on commercial units?</summary><p>Yes, small businesses and light commercial rooftop and split systems.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div><h3>Estebans Hvac SoCal LLC</h3><p>Heating, ventilation and air conditioning for homes and small businesses in the San Gabriel Valley and Los Angeles.</p></div>
+  <div><h3>Contact</h3><ul><li style="user-select:all">(323) 346-2666</li><li style="user-select:all">estebanmota576@gmail.com</li><li>Alhambra, CA</li></ul></div>
+  <div><h3>Hours</h3><ul><li>Mon‚ÄìFri 8 am ‚Äì 7 pm</li><li>Sat 9 am ‚Äì 4 pm</li><li>Emergency calls: call or text</li></ul></div>
+  <p class="legal">Estebans Hvac SoCal LLC is not yet a licensed contractor in California. CSLB C-20 license application in progress; until it is issued, jobs are limited to under $1,000 in combined labor and materials. EPA Section 608 certified. ¬© 2026 Estebans Hvac SoCal LLC. Site by Sentinel Paradise Inc.</p>
+</div></footer>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  // dial
+  const setMode=m=>{
+    const cool=m==='cool';
+    $('m-cool').setAttribute('aria-pressed',cool); $('m-heat').setAttribute('aria-pressed',!cool);
+    $('temp').innerHTML=(cool?'72':'68')+'<sup>¬∞F</sup>';
+    $('dialtxt').textContent=cool?'AC not keeping up? Book a cooling visit.':'Cold house? Book a heating visit.';
+    pick(cool?'AC repair':'Heating repair');
+  };
+  $('m-cool').onclick=()=>setMode('cool'); $('m-heat').onclick=()=>setMode('heat');
+  // service picking from links
+  function pick(v){const r=[...document.querySelectorAll('input[name=svc]')].find(i=>i.value===v); if(r){r.checked=true; render();}}
+  document.querySelectorAll('[data-svc]').forEach(a=>a.addEventListener('click',()=>pick(a.dataset.svc)));
+  // default date = tomorrow
+  const d=new Date(); d.setDate(d.getDate()+1); $('date').value=d.toISOString().slice(0,10); $('date').min=new Date().toISOString().slice(0,10);
+  const f=$('order');
+  function render(){
+    const svc=(f.querySelector('input[name=svc]:checked')||{}).value||'';
+    $('sumtitle').textContent=svc;
+    const rows=[['System',$('sys').value],['Urgency',$('urg').value.split(' (')[0]],['When',($('date').value||'‚Äî')+', '+$('win').value.split(' (')[0]],['Name',$('name').value||'‚Äî'],['Phone',$('phone').value||'‚Äî'],['Address',[$('addr').value,$('zip').value].filter(Boolean).join(', ')||'‚Äî']];
+    $('sumlist').innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${String(v).replace(/[<>&]/g,'')}</dd>`).join('');
+  }
+  f.addEventListener('input',render); f.addEventListener('change',render); render();
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const miss=[['name','your name'],['phone','a phone number'],['addr','the service address'],['zip','a ZIP code']].filter(([id])=>!$(id).value.trim()).map(x=>x[1]);
+    if(miss.length){$('err').textContent='Add '+miss.join(', ')+' so we can confirm your visit.';return;}
+    if(!/^\d{5}$/.test($('zip').value)){$('err').textContent='Enter a 5-digit ZIP code.';return;}
+    $('err').textContent='';
+    const c=$('sumcard'); c.classList.add('done');
+    c.querySelector('.eyebrow').textContent='Request ready';
+    $('sumtitle').textContent='Thanks, '+$('name').value.split(' ')[0]+'!';
+    c.insertAdjacentHTML('beforeend','<p style="color:var(--muted);font-size:.93rem">Draft preview: once the site is live, this request goes straight to Esteban, who confirms by phone or text.</p>');
+  });
+  // zip check
+  const zips=['91801','91803','91775','91776','91754','91755','91770','91108','91030','91101','91104','91105','91106','91107','91780','90032','90022','90063','90042','90041','90031','90065'];
+  $('zipbtn').onclick=()=>{const z=$('zipq').value.trim(); $('zipres').textContent=!/^\d{5}$/.test(z)?'Enter a 5-digit ZIP.':zips.includes(z)?'Yes, we serve '+z+'. Book online or call.':'We may still reach '+z+'. Call or text to check.';};
+})();
+</script>
