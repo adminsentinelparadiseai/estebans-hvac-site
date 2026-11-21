@@ -160,7 +160,6 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-<div class="draft"><div class="wrap"><b>Rough draft for Esteban.</b> Sample prices and reviews are marked and need your OK before launch.</div></div>
 
 <header class="top"><div class="wrap">
   <a class="brand" href="#top"><span class="mark" aria-hidden="true"></span>Estebans Hvac SoCal</a>
@@ -278,7 +277,6 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
     <div class="plan feature"><p class="eyebrow" style="color:var(--warm)">Most popular</p><h3>Comfort</h3><div class="price">$25<span> /mo</span></div><ul><li>2 tune-ups (spring cooling + fall heating)</li><li>10% off repairs</li><li>No overtime charges</li><li>Priority scheduling</li></ul><a class="btn btn-warm" href="#book" data-svc="Tune-up">Choose Comfort</a></div>
     <div class="plan"><h3>Business</h3><div class="price">$45<span> /mo</span></div><ul><li>Quarterly inspections</li><li>15% off repairs</li><li>Same-day response</li><li>Up to 3 units</li></ul><a class="btn btn-line" href="#book" data-svc="Tune-up">Choose Business</a></div>
   </div>
-  <p class="note"><span class="sample">Sample pricing</span> Esteban sets final plan prices. Online plan sign-up and card payments get connected before launch.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -291,8 +289,8 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
   </ol>
 </div></section>
 
-<section id="area" class="alt"><div class="wrap">
-  <div class="grid two">
+<section id="area" class="alt"><div class="wrap" style="max-width:860px">
+  <div class="grid">
     <div>
       <p class="eyebrow">Where we work</p><h2>Service area</h2>
       <p style="color:var(--muted);margin-top:10px">Based in Alhambra, serving the San Gabriel Valley and nearby Los Angeles neighborhoods.</p>
@@ -302,13 +300,6 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
         <button class="btn btn-line" type="button" id="zipbtn" style="align-self:end">Check</button>
       </div>
       <p id="zipres" aria-live="polite" style="margin-top:10px;font-weight:500"></p>
-    </div>
-    <div>
-      <p class="eyebrow">Customers</p><h2>What neighbors say</h2>
-      <div class="grid" style="margin-top:16px">
-        <blockquote><span class="sample">Sample review</span><p>"Came out the same day our AC quit in August. Explained everything and the price was exactly what he quoted."</p><cite>Homeowner, Alhambra</cite></blockquote>
-        <blockquote><span class="sample">Sample review</span><p>"Our furnace was making a burning smell. Esteban found a cracked part, fixed it and checked the whole system."</p><cite>Homeowner, Monterey Park</cite></blockquote>
-      </div>
     </div>
   </div>
 </div></section>
@@ -364,7 +355,9 @@ footer ul{list-style:none;padding:0;margin:0;display:grid;gap:4px}
     const c=$('sumcard'); c.classList.add('done');
     c.querySelector('.eyebrow').textContent='Request ready';
     $('sumtitle').textContent='Thanks, '+$('name').value.split(' ')[0]+'!';
-    c.insertAdjacentHTML('beforeend','<p style="color:var(--muted);font-size:.93rem">Draft preview: once the site is live, this request goes straight to Esteban, who confirms by phone or text.</p>');
+    c.insertAdjacentHTML('beforeend','<p style="color:var(--muted);font-size:.93rem">Your messages app is opening so you can send this to Esteban at 323-346-2666. He confirms by phone or text.</p>');
+    const body='Hi Esteban, service request: '+[...$('sumlist').querySelectorAll('dt')].map(dt=>dt.textContent+': '+dt.nextElementSibling.textContent).join('; ');
+    setTimeout(()=>{location.href='sms:+13233462666?&body='+encodeURIComponent(body)},300);
   });
   // zip check
   const zips=['91801','91803','91775','91776','91754','91755','91770','91108','91030','91101','91104','91105','91106','91107','91780','90032','90022','90063','90042','90041','90031','90065'];
